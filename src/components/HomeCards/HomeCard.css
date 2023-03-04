@@ -1,0 +1,38 @@
+
+
+#homecard-container{
+    width: 20rem;
+    height: 30rem;
+    border: 1px solid green;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem;
+    
+}
+
+#img-card{
+    width: 18rem;
+    height: 20rem;
+    border-radius: 15px;
+}
+
+#img-name{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.5rem;
+        
+}
+
+#img-name h3{
+    margin-top: 0;
+}
+
+#more-info-link{
+    /* margin-bottom: 2rem; */
+    
+}

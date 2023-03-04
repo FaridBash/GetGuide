@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Norican&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+#outlet {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #0f2027;
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+}
+
+#header {
+  width: 100%;
+  height: 10%;
+  /* margin-bottom: 1rem; */
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: #3e5151; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #decba4,
+    #3e5151
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #decba4,
+    #3e5151
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#header h2 {
+  /* padding-left: 4rem; */
+  font-size: 30px;
+  font-family: "Norican", cursive;
+  margin: 0.5rem;
+}
+
+#header span {
+  color: orange;
+  writing-mode: vertical-lr;
+  font-size: 13px;
+  margin-right: -0.4rem;
+}
+
+#myMenu {
+  /* width: 20%; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  list-style: none;
+  padding-right: 3rem;
+}
+
+.link {
+  width: fit-content;
+  color: aliceblue;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+}
+
+.link:hover,
+.link:active {
+  border-bottom: 1px solid white;
+}
+
+@media only screen and (max-width: 600px) {
+  #main-container {
+    display: flex;
+    flex-direction: column;
+  }
+  #header {
+    width: 100%;
+    height: 13%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+    position: fixed;
+  }
+
+  #header h2 {
+    padding: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+
+  #myMenu {
+    /* flex-direction: column; */
+    font-size: 12px;
+    margin-top: 0;
+  }
+
+  #outlet {
+    width: 100%;
+    height: 100vh;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 1rem;
+
+    padding-bottom: 2rem;
+  }
+}
