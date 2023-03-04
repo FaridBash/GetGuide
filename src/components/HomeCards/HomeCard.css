@@ -2,15 +2,22 @@
 
 #homecard-container{
     width: 20rem;
-    height: 30rem;
+    height: 12rem;
     border: 1px solid green;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     margin: 2rem;
+    padding: 0 1rem;
     
+}
+
+#homecard-container h4{
+    height: 30%;
+}
+#homecard-container p{
+    height: 20%;
 }
 
 #img-card{
@@ -28,11 +35,8 @@
         
 }
 
-#img-name h3{
+#img-name p{
     margin-top: 0;
-}
-
-#more-info-link{
-    /* margin-bottom: 2rem; */
+    font-size: 15px;
     
 }
