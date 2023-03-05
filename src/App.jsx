@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import HomePage from './components/HomeCards/HomePage'
 import Header from './components/Header/Header'
+import GuideDash from './components/GuideSection/GuideDash'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TourDetail from './components/TourDetail/TourDetail'
 
@@ -19,6 +20,10 @@ const route = createBrowserRouter([
       {
         path: "/:xid",
         element: <TourDetail/>,
+      },
+      {
+        path: "/guidedash",
+        element: <GuideDash/>,
       },
      
     ],

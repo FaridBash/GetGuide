@@ -8,7 +8,7 @@ export default function HomePage() {
   const [lon ,setLon]=useState();
   const [lat ,setLat]=useState();
   const [citySearch, setCitySearch]=useState();
-  // const [placeImages, setPlacesImage] = useState([]);
+  
   
   const state = location.state;
   const apiK = "5ae2e3f221c38a28845f05b61634580f311958ac6a07a129cd0f14cd";
@@ -69,6 +69,7 @@ useEffect(() => {
   return (
     <div id="home-page-container">
       <h1>Welcome to Get A Guide</h1>
+      <p>What is your destination city?</p>
         <form id="search-form">
         <input type="text" ref={searchCityRef} />
         <button onClick={(e)=>{ e.preventDefault(); setCitySearch(searchCityRef.current.value)}}>Search</button>

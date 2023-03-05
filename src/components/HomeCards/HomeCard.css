@@ -2,19 +2,20 @@
 
 #homecard-container{
     width: 20rem;
-    height: 12rem;
+    height: 10rem;
     border: 1px solid green;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     margin: 2rem;
     padding: 0 1rem;
     
 }
 
 #homecard-container h4{
-    height: 30%;
+    height: 20%;
 }
 #homecard-container p{
     height: 20%;
