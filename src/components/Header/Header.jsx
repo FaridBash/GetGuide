@@ -19,7 +19,9 @@ export default function Header(){
         <img src="src\assets\get-a-guide-low-resolution-logo-white-on-transparent-background.png" alt="logo" id='header-logo' />
         <ul id='myMenu'>
             <Link className='link' to={'/home'}>Tours</Link>
-            <Link className='link' to={'/guidedash'}>DashBoard </Link>
+            { JSON.parse(localStorage.getItem('onlineUser'))!=null?
+                <Link className='link' to={'/guidedash'}>DashBoard </Link>:undefined
+            }
             <Link className='link'>About us</Link>
         </ul>
         </div>

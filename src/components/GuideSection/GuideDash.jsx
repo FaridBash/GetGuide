@@ -9,6 +9,7 @@ export default function GuideDash() {
   const [filteredAuctions, setFilteredAcutions] = useState();
   const [auctionBoxId, setAuctionBoxId] = useState(undefined);
   const [bid, setBid] = useState(undefined);
+  const [bidderObj, setBidderObj]=useState({});
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('onlineUser')).role);
   const [onlineUser, setOnlineUser]=useState(JSON.parse(localStorage.getItem('onlineUser'))??null);
   const [lang, setLang]=useState(JSON.parse(localStorage.getItem('onlineUser')).speakLanguages);
@@ -40,7 +41,13 @@ export default function GuideDash() {
 
   useEffect(() => {
     console.log("My Bid is", bid);
+    let newObj={};
+    newObj.name=onlineUser.firstName;
+    newObj.bid=bid;
+    setBidderObj(newObj);
+    console.log('bidderObj',bidderObj.bid);
     updateHandler(auctionBoxId, bid);
+
   }, [bid]);
 
   function getAuctions() {
@@ -84,7 +91,7 @@ export default function GuideDash() {
       fetch(`${url}/${itemId}`, {
         method: "PUT",
         body: JSON.stringify({
-          bids: [...myAuc[0].bids, newObj],
+          bids: [...myAuc[0].bids, bidderObj],
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",

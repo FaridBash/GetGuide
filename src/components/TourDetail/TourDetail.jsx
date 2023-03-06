@@ -84,6 +84,13 @@ async function fetchOpenAuction(obj){
             <h2>{place.name}</h2>
             <div id="row">
               <img src={place.preview.source} alt="" id="place-image" />
+              <div id="control-section">
+                <LangSelect handleChange={handleChange} />
+                <button id="auction-btn" onClick={()=>{
+                    setAuctionObj({place: place.name, language: option.value, bids:[], username:JSON.parse(localStorage.getItem('onlineUser')).firstName});
+                  console.log("option", option.value);}}
+                  >Start Auction</button>
+              </div>
               <div id="info">
                 <p id="address-p">
                   <b>Address:</b> {place.address.suburb}
@@ -97,13 +104,7 @@ async function fetchOpenAuction(obj){
                   {place.sources.geometry}
                 </p>
               </div>
-              <div id="control-section">
-                <LangSelect handleChange={handleChange} />
-                <button id="auction-btn" onClick={()=>{
-                    setAuctionObj({place: place.name, language: option.value, bids:[], username:JSON.parse(localStorage.getItem('onlineUser')).firstName});
-                  console.log("option", option.value);}}
-                  >Start Auction</button>
-              </div>
+              
             </div>
           </div>
         </>

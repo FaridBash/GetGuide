@@ -54,8 +54,9 @@
 
     #auctions-sec{
         width: 100%;
-        /* flex-wrap: nowrap; */
-        /* overflow-x: scroll; */
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        margin-top: -1rem;
     }
 
 }
