@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Spinner from "../Spinner";
 import HomeCard from "./HomeCards";
 import "./HomePage.css";
 
@@ -87,7 +88,7 @@ useEffect(() => {
             />
           );
         })}
-        {isLoading && <div id='spinner'> <div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> </div>}
+        {isLoading && <Spinner/>}
 
       </div>
     </div>

@@ -80,7 +80,7 @@ export default function GuideDash() {
   }
 
 
-  async function updateUserHandler(userId, role){
+  async function updateUserHandler(userId, lang){
     // let user=JSON.parse(localStorage.getItem('onlineUser'));
     // const role=role;
     // user={...user, role}
@@ -89,7 +89,7 @@ export default function GuideDash() {
         method: 'PUT',
         body: JSON.stringify({
            
-          role:role,
+          speakLanguages:lang,
            
           }),
           headers: {
@@ -159,7 +159,7 @@ export default function GuideDash() {
     return (
       <div>
         <h1>Welcome admin</h1>
-        <button onClick={()=>{updateUserHandler(10, "admin")}}>edit</button>
+        <button onClick={()=>{updateUserHandler(3, ["French"])}}>edit</button>
       </div>
     );
   }

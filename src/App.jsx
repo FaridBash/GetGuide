@@ -16,10 +16,10 @@ const route = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage/>,
+        element: <SignIn/>,
       },
       {
-        path: "/:xid",
+        path: "/home/:xid",
         element: <TourDetail/>,
       },
       {
@@ -27,8 +27,8 @@ const route = createBrowserRouter([
         element: <GuideDash/>,
       },
       {
-        path: "/signin",
-        element: <SignIn/>,
+        path: "/home",
+        element: <HomePage/>,
       },
      
     ],

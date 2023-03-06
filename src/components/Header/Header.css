@@ -40,7 +40,10 @@
   align-items: center;
   justify-content: space-evenly;
 }
-
+#header-logo{
+  width: 5rem;
+  
+}
 #header h2 {
   /* padding-left: 4rem; */
   font-size: 30px;
