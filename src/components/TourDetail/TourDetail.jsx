@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Spinner from "../Spinner";
 import LangSelect from "./LangSelect";
 import "./TourDetail.css";
 
@@ -75,12 +76,7 @@ async function fetchOpenAuction(obj){
   return (
     <div id="detail-container">
       {isLoading && (
-        <div id="spinner">
-          {" "}
-          <div className="lds-grid">
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-          </div>{" "}
-        </div>
+        <Spinner/>
       )}
       {place && (
         <>
@@ -104,7 +100,7 @@ async function fetchOpenAuction(obj){
               <div id="control-section">
                 <LangSelect handleChange={handleChange} />
                 <button id="auction-btn" onClick={()=>{
-                    setAuctionObj({place: place.name, language: option.value, bids:[], username:"Fareed"});
+                    setAuctionObj({place: place.name, language: option.value, bids:[], username:JSON.parse(localStorage.getItem('onlineUser')).firstName});
                   console.log("option", option.value);}}
                   >Start Auction</button>
               </div>

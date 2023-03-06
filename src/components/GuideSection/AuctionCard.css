@@ -2,7 +2,7 @@
 
 #auc-container{
     width: 15rem;
-    height: 13rem;
+    height: 18rem;
     border: 1px solid #fff;
     margin: 1rem;
     border-radius: 15px;
@@ -10,6 +10,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    
 }
 
 #auc-container h5{

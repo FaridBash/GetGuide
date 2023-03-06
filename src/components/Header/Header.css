@@ -5,13 +5,18 @@
 
 #outlet {
   width: 100%;
-  height: 90%;
+  height: 90vh;
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: #0f2027;
-  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
-  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: rgb(46, 79, 79);
+  background: linear-gradient(
+    172deg,
+    rgba(46, 79, 79, 1) 30%,
+    rgba(14, 131, 136, 1) 96%
+  );
+  color: whitesmoke;
+  overflow-y: hidden;
 }
 
 #header {
@@ -21,18 +26,19 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background: #3e5151; 
-  background: -webkit-linear-gradient(
-    to right,
-    #decba4,
-    #3e5151
-  ); 
+  background: rgb(44, 51, 51);
   background: linear-gradient(
-    to right,
-    #decba4,
-    #3e5151
-  ); 
-  
+    172deg,
+    rgba(44, 51, 51, 1) 30%,
+    rgba(203, 228, 222, 1) 96%
+  );
+}
+
+#user-logout{
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 #header h2 {
@@ -107,7 +113,6 @@
     flex-direction: row;
     align-items: center;
     padding-top: 1rem;
-
     padding-bottom: 2rem;
   }
 }

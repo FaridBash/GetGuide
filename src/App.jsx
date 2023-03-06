@@ -6,6 +6,7 @@ import Header from './components/Header/Header'
 import GuideDash from './components/GuideSection/GuideDash'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TourDetail from './components/TourDetail/TourDetail'
+import SignIn from './components/SignIn/SignIn'
 
 
 const route = createBrowserRouter([
@@ -24,6 +25,10 @@ const route = createBrowserRouter([
       {
         path: "/guidedash",
         element: <GuideDash/>,
+      },
+      {
+        path: "/signin",
+        element: <SignIn/>,
       },
      
     ],
