@@ -67,15 +67,24 @@ export default function GuideDash() {
   }
 
   async function updateHandler(itemId, newbid) {
+    let newObj={}
     const myAuc = auctions.filter((e) => {
       return e.id === itemId ? e : undefined;
     });
+    // if(myAuc!=undefined){
+
+    //   newObj=myAuc.bids.forEach(element => {
+    //     if(element.name===onlineUser.firstName){return element}
+    //   });
+    //   if(!newObj){newObj.name=onlineUser.name; newObj.bid=newbid}
+    //   console.log('newObj',newObj);
+    // }
     console.log("myAuc", myAuc);
     try {
       fetch(`${url}/${itemId}`, {
         method: "PUT",
         body: JSON.stringify({
-          bids: [...myAuc[0].bids, newbid],
+          bids: [...myAuc[0].bids, newObj],
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",

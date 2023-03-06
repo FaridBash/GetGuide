@@ -21,9 +21,10 @@
 
 #header {
   width: 100%;
-  height: 10%;
+  height: 5%;
   /* margin-bottom: 1rem; */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
   background: rgb(44, 51, 51);
@@ -33,30 +34,45 @@
     rgba(203, 228, 222, 1) 96%
   );
 }
+#header-col1{
+  width: 70%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#header-col2{
+  width: 100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  background: rgb(46, 79, 79);
+  
+}
 
+#header-col2 p, #header-col2 button{
+  font-size: 12px;
+  /* padding: 0; */
+}
 #user-logout{
-  width: max-content;
+  width:15%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  margin-right: 2rem;
 }
 #header-logo{
   width: 5rem;
-  
+
 }
 #header h2 {
   /* padding-left: 4rem; */
-  font-size: 30px;
+  font-size: 20px;
   font-family: "Norican", cursive;
   margin: 0.5rem;
 }
 
-#header span {
-  color: orange;
-  writing-mode: vertical-lr;
-  font-size: 13px;
-  margin-right: -0.4rem;
-}
 
 #myMenu {
   /* width: 20%; */
@@ -65,14 +81,16 @@
   justify-content: space-between;
   text-decoration: none;
   list-style: none;
-  padding-right: 3rem;
+  
 }
 
 .link {
   width: fit-content;
   color: aliceblue;
-  padding: 0.5rem;
+  /* padding-right: 1rem; */
+  margin-right: 1rem;
   border: 1px solid transparent;
+  font-size: 15px;
 }
 
 .link:hover,
@@ -80,40 +98,58 @@
   border-bottom: 1px solid white;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   #main-container {
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
   }
   #header {
     width: 100%;
-    height: 13%;
+    height: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     justify-content: flex-start;
-    position: fixed;
+    /* position: fixed; */
   }
 
-  #header h2 {
-    padding: 0;
-    margin-left: 0;
-    margin-bottom: 0;
-  }
+
 
   #myMenu {
     /* flex-direction: column; */
+    width: 100%;
     font-size: 12px;
-    margin-top: 0;
+    margin: auto;
+
+  }
+  #header-logo{
+    margin: auto;
+  }
+
+  #header-col1{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1rem;
+  }
+  #user-logout{
+    width: 100%;
+    font-size: 8px;
+    justify-content: space-between;
+    margin: 0 2rem;
+  }
+
+  #user-logout button{
+    font-size: 8px;
   }
 
   #outlet {
     width: 100%;
-    height: 100vh;
-    margin-top: 5rem;
+    height: 88vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     padding-top: 1rem;
     padding-bottom: 2rem;

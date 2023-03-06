@@ -15,19 +15,24 @@ export default function Header(){
     },[myUser])
     return <div id='main-container'>
     <div id="header">
+        <div id='header-col1'>
         <img src="src\assets\get-a-guide-low-resolution-logo-white-on-transparent-background.png" alt="logo" id='header-logo' />
         <ul id='myMenu'>
             <Link className='link' to={'/home'}>Tours</Link>
             <Link className='link' to={'/guidedash'}>DashBoard </Link>
             <Link className='link'>About us</Link>
         </ul>
+        </div>
+        <div id='header-col2'>
+
         {myUser ? <div id='user-logout'><p>Welcome {myUser.firstName}</p> <button onClick={()=>{
             localStorage.setItem('onlineUser', null);
             setMyUser(JSON.parse(localStorage.getItem('onlineUser')))
             nav('/');
         }}>Logout</button></div>:
         <Link to={'/'}>Sign-in</Link>
-        }
+    }
+    </div>
     </div>
     <div id='outlet'>
     <Outlet/>
