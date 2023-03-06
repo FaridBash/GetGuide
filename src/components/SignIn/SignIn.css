@@ -39,6 +39,8 @@
   margin-right: 12rem;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 30px 30px;
   transform: rotate(-1deg);
+  /* border: 2px solid red; */
+  border-radius: 5px;
 }
 
 .signup-input{

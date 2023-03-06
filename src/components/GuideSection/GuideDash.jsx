@@ -11,6 +11,8 @@ export default function GuideDash() {
   const [bid, setBid] = useState(undefined);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('onlineUser')).role);
   const [onlineUser, setOnlineUser]=useState(JSON.parse(localStorage.getItem('onlineUser'))??null);
+  const [lang, setLang]=useState(JSON.parse(localStorage.getItem('onlineUser')).speakLanguages);
+  const [aucByLang, setAucByLang]=useState([]);
   const url = `https://640457a280d9c5c7bac5adca.mockapi.io/getguide/auctions`;
 
   useEffect(() => {
@@ -27,6 +29,13 @@ export default function GuideDash() {
       setFilteredAcutions(auctionsByUser);
       console.log("Auct by user", auctions);
     }
+
+    const auctionByLan=auctions.filter((e)=>{
+      if(JSON.parse(localStorage.getItem('onlineUser')).speakLanguages.includes(e.language)){
+        return e;
+      }
+    });
+    setAucByLang(auctionByLan);
   }, [auctions]);
 
   useEffect(() => {
@@ -136,7 +145,7 @@ export default function GuideDash() {
           <div id="auctions-sec">
             {!isLoading &&
               auctions &&
-              auctions.map((e) => {
+              aucByLang.map((e) => {
                 return (
                   <AuctionCard
                     key={e.id}
