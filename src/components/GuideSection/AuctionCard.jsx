@@ -10,6 +10,7 @@ export default function AuctionCard(props) {
         <p>lang: {props.language}</p>
         <p>Opened by: {props.user}</p>
         <p>#Bid: {props.bids}</p>
+        <button style={{fontSize:'10px'}} onClick={()=>{props.closeClickHandler(props.aucId)}}>Close Auction</button>
       </div>
     }
 

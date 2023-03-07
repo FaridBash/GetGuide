@@ -1,0 +1,16 @@
+
+
+#joined-container{
+    width: 50%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+}
+
+#joined-container p{
+    margin-top: 0;
+    margin-bottom: 0;
+}

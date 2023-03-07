@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Spinner from "../Spinner";
 import AuctionCard from "./AuctionCard";
+import AuctionsJoined from "./AuctionsJoined";
 import "./GuideDash.css";
 
 export default function GuideDash() {
@@ -9,11 +10,18 @@ export default function GuideDash() {
   const [filteredAuctions, setFilteredAcutions] = useState();
   const [auctionBoxId, setAuctionBoxId] = useState(undefined);
   const [bid, setBid] = useState(undefined);
-  const [bidderObj, setBidderObj]=useState({});
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('onlineUser')).role);
-  const [onlineUser, setOnlineUser]=useState(JSON.parse(localStorage.getItem('onlineUser'))??null);
-  const [lang, setLang]=useState(JSON.parse(localStorage.getItem('onlineUser')).speakLanguages);
-  const [aucByLang, setAucByLang]=useState([]);
+  const [bidderObj, setBidderObj] = useState({});
+  const [joinedAucByGuide, setJoinedAucByGuide] = useState();
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("onlineUser")).role
+  );
+  const [onlineUser, setOnlineUser] = useState(
+    JSON.parse(localStorage.getItem("onlineUser")) ?? null
+  );
+  const [lang, setLang] = useState(
+    JSON.parse(localStorage.getItem("onlineUser")).speakLanguages
+  );
+  const [aucByLang, setAucByLang] = useState([]);
   const url = `https://640457a280d9c5c7bac5adca.mockapi.io/getguide/auctions`;
 
   useEffect(() => {
@@ -23,7 +31,10 @@ export default function GuideDash() {
   useEffect(() => {
     if (user === "user" && auctions) {
       const auctionsByUser = auctions.filter((e) => {
-        return e.username === JSON.parse(localStorage.getItem('onlineUser')).firstName ? e : console.log("object");
+        return e.username ===
+          JSON.parse(localStorage.getItem("onlineUser")).firstName
+          ? e
+          : console.log("object");
       });
       console.log("filtered auctu=ions", auctionsByUser);
 
@@ -31,24 +42,46 @@ export default function GuideDash() {
       console.log("Auct by user", auctions);
     }
 
-    const auctionByLan=auctions.filter((e)=>{
-      if(JSON.parse(localStorage.getItem('onlineUser')).speakLanguages.includes(e.language)){
+    const auctionByLan = auctions.filter((e) => {
+      if (
+        JSON.parse(localStorage.getItem("onlineUser")).speakLanguages.includes(
+          e.language
+        )
+      ) {
         return e;
       }
     });
     setAucByLang(auctionByLan);
+
+    console.log("auctions", aucByLang);
+    const auctionsByGuide = aucByLang.filter((obj) => {
+      for (let i = 0; i < obj.bids.length; i++) {
+        if (obj.bids[i].name === onlineUser.firstName) {
+          return true;
+        }
+      }
+      return false;
+    });
+
+    setJoinedAucByGuide(auctionsByGuide);
+
+    console.log("auctionsByGuide", auctionsByGuide);
   }, [auctions]);
 
   useEffect(() => {
     console.log("My Bid is", bid);
-    let newObj={};
-    newObj.name=onlineUser.firstName;
-    newObj.bid=bid;
-    setBidderObj(newObj);
-    console.log('bidderObj',bidderObj.bid);
-    updateHandler(auctionBoxId, bid);
+    let newObj = {};
+    if (bid != "" && bid != undefined) {
+      newObj.name = onlineUser.firstName;
+      newObj.bid = bid;
+      setBidderObj(newObj);
+    }
+  }, [bid, joinedAucByGuide]);
 
-  }, [bid]);
+  useEffect(() => {
+    console.log("bidderObj", bidderObj);
+    updateHandler(auctionBoxId, bidderObj);
+  }, [bidderObj]);
 
   function getAuctions() {
     setIsLoadind(true);
@@ -73,25 +106,22 @@ export default function GuideDash() {
     console.log("clicccck", id);
   }
 
-  async function updateHandler(itemId, newbid) {
-    let newObj={}
-    const myAuc = auctions.filter((e) => {
-      return e.id === itemId ? e : undefined;
-    });
-    // if(myAuc!=undefined){
+  function closeClickHandler(id) {
+    console.log("close id:", id);
+  }
 
-    //   newObj=myAuc.bids.forEach(element => {
-    //     if(element.name===onlineUser.firstName){return element}
-    //   });
-    //   if(!newObj){newObj.name=onlineUser.name; newObj.bid=newbid}
-    //   console.log('newObj',newObj);
-    // }
-    console.log("myAuc", myAuc);
+  async function updateHandler(itemId, biObj) {
+    const myAuc = auctions.find((e) => {
+      if (e.id === itemId) {
+        return e;
+      }
+    });
+
     try {
       fetch(`${url}/${itemId}`, {
         method: "PUT",
         body: JSON.stringify({
-          bids: [...myAuc[0].bids, bidderObj],
+          bids: [...myAuc.bids, biObj],
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -99,35 +129,45 @@ export default function GuideDash() {
       })
         .then((res) => res.json())
         .then((data) => console.log("res", data));
-    } catch (error) {
-      
-    }
+    } catch (error) {}
+  }
+  async function updateCloseHandler(itemId) {
+    try {
+      fetch(`${url}/${itemId}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          AuctionIsOpen: true,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => console.log("res", data));
+    } catch (error) {}
   }
 
-
-  async function updateUserHandler(userId, lang){
+  async function updateUserHandler(userId, lang) {
     // let user=JSON.parse(localStorage.getItem('onlineUser'));
     // const role=role;
     // user={...user, role}
     try {
-        fetch(`https://640457a280d9c5c7bac5adca.mockapi.io/getguide/users/${userId}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-           
-          speakLanguages:lang,
-           
+      fetch(
+        `https://640457a280d9c5c7bac5adca.mockapi.io/getguide/users/${userId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            speakLanguages: lang,
           }),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            "Content-type": "application/json; charset=UTF-8",
           },
-        })
-    .then(res => res.json())
-    .then(data => console.log("res",data))
-    // console.log("EDIT obj:", data);
-    } catch (error) {
-        
-    }
-    }
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => console.log("res", data));
+    } catch (error) {}
+  }
 
   if (user === "user") {
     return (
@@ -145,6 +185,8 @@ export default function GuideDash() {
                   user={e.username}
                   bids={e.bids.length}
                   userType={user}
+                  aucId={e.id}
+                  closeClickHandler={closeClickHandler}
                 />
               );
             })}
@@ -163,19 +205,29 @@ export default function GuideDash() {
               auctions &&
               aucByLang.map((e) => {
                 return (
-                  <AuctionCard
-                    key={e.id}
-                    place={e.place}
-                    language={e.language}
-                    user={e.username}
-                    bids={e.bids.length}
-                    userType={user}
-                    bidClickHandler={bidClickHandler}
-                    aucId={e.id}
+                  <AuctionCard key={e.id} place={e.place} language={e.language} user={e.username} bids={e.bids.length} userType={user} bidClickHandler={bidClickHandler} aucId={e.id}
                   />
                 );
               })}
             {isLoading && <Spinner />}
+          </div>
+          <div id="guide-lists">
+            <div id="joined-auctions">
+              <p>Joined Auctions:</p>
+              <div id="data-table">
+                {joinedAucByGuide &&
+                  joinedAucByGuide.map((e) => {
+                    const myBid = e.bids.find((i) => {
+                      if (i.name === onlineUser.firstName) return i.bid;
+                    });
+                    console.log("myBid", myBid.bid);
+                    return (
+                      <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid}
+                      />
+                    );
+                  })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -184,7 +236,13 @@ export default function GuideDash() {
     return (
       <div>
         <h1>Welcome admin</h1>
-        <button onClick={()=>{updateUserHandler(3, ["French"])}}>edit</button>
+        <button
+          onClick={() => {
+            updateUserHandler(3, ["French"]);
+          }}
+        >
+          edit
+        </button>
       </div>
     );
   }
