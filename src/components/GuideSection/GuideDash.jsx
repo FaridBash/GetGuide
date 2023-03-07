@@ -12,6 +12,7 @@ export default function GuideDash() {
   const [bid, setBid] = useState(undefined);
   const [bidderObj, setBidderObj] = useState({});
   const [joinedAucByGuide, setJoinedAucByGuide] = useState();
+  const [aucToClose, setAucToClose]=useState(undefined);
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("onlineUser")).role
   );
@@ -26,7 +27,16 @@ export default function GuideDash() {
 
   useEffect(() => {
     getAuctions();
+
   }, []);
+
+  useEffect(()=>{
+   if(aucToClose!=undefined){
+    updateCloseHandler(aucToClose);
+    console.log("close id",aucToClose);
+    updateWinnerHandler(aucToClose);
+   } 
+  },[aucToClose])
 
   useEffect(() => {
     if (user === "user" && auctions) {
@@ -66,7 +76,7 @@ export default function GuideDash() {
     setJoinedAucByGuide(auctionsByGuide);
 
     console.log("auctionsByGuide", auctionsByGuide);
-  }, [auctions]);
+  }, [auctions, bid]);
 
   useEffect(() => {
     console.log("My Bid is", bid);
@@ -108,6 +118,7 @@ export default function GuideDash() {
 
   function closeClickHandler(id) {
     console.log("close id:", id);
+    setAucToClose(id);
   }
 
   async function updateHandler(itemId, biObj) {
@@ -121,7 +132,7 @@ export default function GuideDash() {
       fetch(`${url}/${itemId}`, {
         method: "PUT",
         body: JSON.stringify({
-          bids: [...myAuc.bids, biObj],
+          bids: [biObj, ...myAuc.bids],
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -132,11 +143,35 @@ export default function GuideDash() {
     } catch (error) {}
   }
   async function updateCloseHandler(itemId) {
+    
     try {
       fetch(`${url}/${itemId}`, {
         method: "PUT",
         body: JSON.stringify({
           AuctionIsOpen: true,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => console.log("res", data));
+    } catch (error) {}
+  }
+  async function updateWinnerHandler(itemId) {
+    const myAuc = auctions.find((e) => {
+      if (e.id === itemId) {
+        // return e;
+        const smallestBid = Math.min(...myAuc.bids.map(obj => obj.bid));
+        console.log("winner",obj.name, "with bid of: ", smallestBid);
+        return obj.name;
+      }
+    });
+    try {
+      fetch(`${url}/${itemId}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          GuideWon: myAuc,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -174,9 +209,16 @@ export default function GuideDash() {
       <div id="user-page">
         <h4>Hello {onlineUser.firstName}</h4>
         <div id="user-dash">
+          <div id="open-auctions">
+            <p>Open Auctions</p>
+            <div id="open-auctions-display">
+
           {!isLoading &&
             filteredAuctions &&
             filteredAuctions.map((e) => {
+              if(e.AuctionIsOpen===false){
+
+              
               return (
                 <AuctionCard
                   key={e.id}
@@ -188,9 +230,36 @@ export default function GuideDash() {
                   aucId={e.id}
                   closeClickHandler={closeClickHandler}
                 />
-              );
+              );}
             })}
           {isLoading && <Spinner />}
+            </div>
+          </div>
+          <div id="closed-auctions">
+            <p>Closed Auctions</p>
+            <div id="closed-auctions-display">
+            {!isLoading &&
+            filteredAuctions &&
+            filteredAuctions.map((e) => {
+              if(e.AuctionIsOpen===true){
+
+              
+              return (
+                <AuctionCard
+                  key={e.id}
+                  place={e.place}
+                  language={e.language}
+                  user={e.username}
+                  bids={e.bids.length}
+                  userType={user}
+                  aucId={e.id}
+                  closeClickHandler={closeClickHandler}
+                />
+              );}
+            })}
+          {isLoading && <Spinner />}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -204,27 +273,74 @@ export default function GuideDash() {
             {!isLoading &&
               auctions &&
               aucByLang.map((e) => {
-                return (
-                  <AuctionCard key={e.id} place={e.place} language={e.language} user={e.username} bids={e.bids.length} userType={user} bidClickHandler={bidClickHandler} aucId={e.id}
-                  />
-                );
+                if(e.AuctionIsOpen===false){
+
+                  return (
+                    <AuctionCard key={e.id} place={e.place} language={e.language} user={e.username} bids={e.bids.length} userType={user} bidClickHandler={bidClickHandler} aucId={e.id}
+                    />
+                    );
+                  }
+                  
               })}
             {isLoading && <Spinner />}
           </div>
           <div id="guide-lists">
             <div id="joined-auctions">
               <p>Joined Auctions:</p>
-              <div id="data-table">
-                {joinedAucByGuide &&
+              <div class="data-table">
+                {joinedAucByGuide && 
                   joinedAucByGuide.map((e) => {
+                    let mycolor='green';
+                    if(e.AuctionIsOpen===true){mycolor='red'}
                     const myBid = e.bids.find((i) => {
                       if (i.name === onlineUser.firstName) return i.bid;
                     });
                     console.log("myBid", myBid.bid);
                     return (
                       <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid}
+                      color={mycolor} aucId={e.id}
                       />
                     );
+                  })}
+              </div>
+            </div>
+            <div id="closed-auctions-guide">
+              <p>Closed Auctions</p>
+              <div className="data-table">
+                
+            {joinedAucByGuide && 
+                  joinedAucByGuide.map((e) => {
+                    const myBid = e.bids.find((i) => {
+                      if (i.name === onlineUser.firstName) return i.bid;
+                    });
+                    console.log("myBid", myBid.bid);
+                    if(e.AuctionIsOpen===true){
+
+                      return (
+                        <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid} aucId={e.id}
+                        />
+                        );
+                      }
+                  })}
+              </div>
+            </div>
+            <div id="closed-auctions-guide">
+              <p>You Won</p>
+              <div className="data-table">
+                
+            {joinedAucByGuide && 
+                  joinedAucByGuide.map((e) => {
+                    const myBid = e.bids.find((i) => {
+                      if (i.name === onlineUser.firstName) return i.bid;
+                    });
+                    console.log("myBid", myBid.bid);
+                    if(e.AuctionIsOpen===true){
+
+                      return (
+                        <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid} aucId={e.id}
+                        />
+                        );
+                      }
                   })}
               </div>
             </div>
