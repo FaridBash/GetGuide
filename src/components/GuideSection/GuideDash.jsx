@@ -86,6 +86,7 @@ export default function GuideDash() {
       newObj.bid = bid;
       setBidderObj(newObj);
     }
+    // getAuctions();
   }, [bid, joinedAucByGuide]);
 
   useEffect(() => {
@@ -113,6 +114,7 @@ export default function GuideDash() {
   function bidClickHandler(d, id) {
     setBid(d);
     setAuctionBoxId(id);
+    getAuctions();
     console.log("clicccck", id);
   }
 
@@ -161,17 +163,28 @@ export default function GuideDash() {
   async function updateWinnerHandler(itemId) {
     const myAuc = auctions.find((e) => {
       if (e.id === itemId) {
-        // return e;
-        const smallestBid = Math.min(...myAuc.bids.map(obj => obj.bid));
-        console.log("winner",obj.name, "with bid of: ", smallestBid);
-        return obj.name;
+        return e;
       }
     });
+    console.log('My CLosed Auction',myAuc.bids);
+    let min=myAuc.bids[0].bid;
+    let gName=myAuc.bids[0].name;
+    if(myAuc.bids!= undefined){
+
+    
+    for (let i = 0; i < myAuc.bids.length; i++) {
+      const element = myAuc.bids[i];
+      if(min>element.bid){
+        min=element.bid;
+        gName=element.name;
+      }
+    }
+  }
     try {
       fetch(`${url}/${itemId}`, {
         method: "PUT",
         body: JSON.stringify({
-          GuideWon: myAuc,
+          GuideWon: gName,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -296,11 +309,14 @@ export default function GuideDash() {
                       if (i.name === onlineUser.firstName) return i.bid;
                     });
                     console.log("myBid", myBid.bid);
-                    return (
-                      <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid}
-                      color={mycolor} aucId={e.id}
-                      />
-                    );
+                    if(e.AuctionIsOpen===false){
+
+                      return (
+                        <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid}
+                        color={mycolor} aucId={e.id}
+                        />
+                        );
+                      }
                   })}
               </div>
             </div>
@@ -315,9 +331,9 @@ export default function GuideDash() {
                     });
                     console.log("myBid", myBid.bid);
                     if(e.AuctionIsOpen===true){
-
                       return (
                         <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid} aucId={e.id}
+                        color={"red"}
                         />
                         );
                       }
@@ -334,10 +350,12 @@ export default function GuideDash() {
                       if (i.name === onlineUser.firstName) return i.bid;
                     });
                     console.log("myBid", myBid.bid);
-                    if(e.AuctionIsOpen===true){
+                    if(e.AuctionIsOpen===true && e.GuideWon===onlineUser.firstName){
 
                       return (
-                        <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid} aucId={e.id}
+                        <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid} 
+                        aucId={e.id}
+                        color="grey"
                         />
                         );
                       }

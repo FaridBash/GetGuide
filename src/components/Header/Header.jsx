@@ -27,7 +27,7 @@ export default function Header(){
         </div>
         <div id='header-col2'>
 
-        {myUser ? <div id='user-logout'><p>Welcome {myUser.firstName}</p> <button onClick={()=>{
+        {JSON.parse(localStorage.getItem('onlineUser'))!=null? <div id='user-logout'><p>Welcome {JSON.parse(localStorage.getItem('onlineUser')).firstName}</p> <button onClick={()=>{
             localStorage.setItem('onlineUser', null);
             setMyUser(JSON.parse(localStorage.getItem('onlineUser')))
             nav('/');
