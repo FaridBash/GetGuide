@@ -125,6 +125,11 @@
       font-size: larger;
     }
 
+    #home-page-container{
+      height: 82vh;
+      box-sizing: border-box;
+    }
+
     #search-form{
       flex-direction: column;
       height: 30%;

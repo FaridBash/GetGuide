@@ -11,7 +11,9 @@ export default function AuctionCard(props) {
         <p>Opened by: {props.user}</p>
         <p>#Bid: {props.bids}</p>
         <p>Auction Id: {props.aucId}</p>
-        <button style={{fontSize:'10px'}} onClick={()=>{props.closeClickHandler(props.aucId)}}>Close Auction</button>
+        
+        {props.closed === true ? <div><p>Guide: {props.guide}</p> <button style={{fontSize:'10px'}} onClick={()=>{props.closeClickHandler(props.aucId)}}>Contact {props.guide}</button> </div>: 
+        <button style={{fontSize:'10px'}} onClick={()=>{props.closeClickHandler(props.aucId)}}>Close Auction</button>}
       </div>
     }
 

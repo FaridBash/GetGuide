@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './Header.css'
 
@@ -13,16 +13,27 @@ export default function Header(){
         console.log("Myuser",myUser);
         
     },[myUser])
+
+
+    const LinkStyles=({isActive})=>{
+        console.log('isActive',isActive);
+        return {
+            borderBottom: isActive? '1px solid orange':'',
+            color: isActive? 'orange':'white'
+        }
+    }
+
+
     return <div id='main-container'>
     <div id="header">
         <div id='header-col1'>
         <img src="src\assets\get-a-guide-low-resolution-logo-white-on-transparent-background.png" alt="logo" id='header-logo' />
         <ul id='myMenu'>
-            <Link className='link' to={'/home'}>Tours</Link>
+            <NavLink style={LinkStyles} className='link' to={'/home'}>Tours</NavLink>
             { JSON.parse(localStorage.getItem('onlineUser'))!=null?
-                <Link className='link' to={'/guidedash'}>DashBoard </Link>:undefined
+                <NavLink style={LinkStyles} className='link' to={'/guideDash/openauctions'}>DashBoard </NavLink>:undefined
             }
-            <Link className='link'>About us</Link>
+            <NavLink className='link'>About us</NavLink>
         </ul>
         </div>
         <div id='header-col2'>
@@ -32,7 +43,7 @@ export default function Header(){
             setMyUser(JSON.parse(localStorage.getItem('onlineUser')))
             nav('/');
         }}>Logout</button></div>:
-        <Link to={'/'}>Sign-in</Link>
+        <NavLink to={'/'}>Sign-in</NavLink>
     }
     </div>
     </div>

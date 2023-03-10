@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigation, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Spinner from "../Spinner";
 import LangSelect from "./LangSelect";
@@ -10,7 +10,7 @@ export default function TourDetail() {
   const [isLoading, setIsLoadind] = useState(false);
   const [option , setOption]=useState('');
   const [auctionObj, setAuctionObj]=useState(undefined);
-  
+  const navigate=useNavigation();
   const params = useParams();
 
   const apiK = "5ae2e3f221c38a28845f05b61634580f311958ac6a07a129cd0f14cd";
@@ -88,7 +88,9 @@ async function fetchOpenAuction(obj){
                 <LangSelect handleChange={handleChange} />
                 <button id="auction-btn" onClick={()=>{
                     setAuctionObj({place: place.name, language: option.value, bids:[], username:JSON.parse(localStorage.getItem('onlineUser')).firstName});
-                  console.log("option", option.value);}}
+                    navigate('/guidedash');
+                    console.log("option", option.value);
+                }}
                   >Start Auction</button>
               </div>
               <div id="info">
