@@ -61,7 +61,7 @@ export default function SignIn(){
     
     return(
         <div id="signup-form-container">
-          <img src="src\assets\get-a-guide-high-resolution-logo-color-on-transparent-background.png" alt="" id="logo" />
+          <img src="src\images\colored-logo.png" alt="" id="logo" />
             <form id="signup-form">
             <h2>Sign In</h2>
                 <div id="inputs">
