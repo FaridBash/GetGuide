@@ -27,6 +27,7 @@ export default function GuideDash() {
   const url = `https://640457a280d9c5c7bac5adca.mockapi.io/getguide/auctions`;
 
   useEffect(() => {
+    
     getAuctions();
   }, []);
 
@@ -86,7 +87,7 @@ export default function GuideDash() {
       newObj.bid = bid;
       setBidderObj(newObj);
     }
-    // getAuctions();
+
   }, [bid, joinedAucByGuide]);
 
   useEffect(() => {
@@ -114,7 +115,10 @@ export default function GuideDash() {
   function bidClickHandler(d, id) {
     setBid(d);
     setAuctionBoxId(id);
-    getAuctions();
+    // setTimeout(() => {
+    //   getAuctions();
+      
+    // }, 300);
     console.log("clicccck", id);
   }
 
