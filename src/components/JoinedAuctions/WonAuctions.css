@@ -10,18 +10,19 @@
 
 
 .won-table{
-    width: 40%;
+    width: 100%;
     height: 80%;
     display: flex;
+    flex-direction: row;
     align-items: flex-start;
-    justify-content: center;
+    /* justify-content: center; */
     border: 1px solid orange;
     border-radius: 15px;
     overflow-y: scroll;
 }
 
 .won-data-table{
-    width: 100% !important;
+    width: 50% !important;
     height: 100%;
     margin: 2rem;
 }
@@ -29,9 +30,15 @@
 
 @media only screen and (max-width: 700px){
    
-    
+    #won-auctions-guide{
+        width: 100vw;
+        height: 80vh;
+        /* overflow-y: hidden; */
+        align-items: center;
+        justify-content: center;
+    }
     .won-table{
-        width: 90%;
+        width: 80%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -39,7 +46,7 @@
         overflow-x: hidden;
     }
     .won-data-table{
-        width: 50% !important;
+        width: 70% !important;
         height: fit-content;
         text-align: left;
    }

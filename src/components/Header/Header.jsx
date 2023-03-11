@@ -27,7 +27,7 @@ export default function Header(){
     return <div id='main-container'>
     <div id="header">
         <div id='header-col1'>
-        <img src="src\assets\get-a-guide-low-resolution-logo-white-on-transparent-background.png" alt="logo" id='header-logo' />
+        <img src=".\assets\get-a-guide-high-resolution-logo-color-on-transparent-background.png" alt="logo" id='header-logo' />
         <ul id='myMenu'>
             <NavLink style={LinkStyles} className='link' to={'/home'}>Tours</NavLink>
             { JSON.parse(localStorage.getItem('onlineUser'))!=null?

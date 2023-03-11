@@ -104,8 +104,8 @@
         flex-direction: row;
     }
     #joined-container{
-        width: 20rem;
-        height: 100%;
+        width: 70%;
+        height: 11rem;
     }
     #closed-auctions-guide{
         width: 100%;
