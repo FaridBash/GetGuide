@@ -11,14 +11,14 @@
 
 
 #home-page-cards{
-    width: 80%;
-    height: 30%;
+    width: 90%;
+    height: 50%;
     overflow-y: scroll;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin-top: 2rem;
 }
 

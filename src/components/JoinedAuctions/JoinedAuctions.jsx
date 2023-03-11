@@ -9,11 +9,16 @@ export default function JoinedAuctions() {
   const [onlineUser, setOnlineUser] = useState(
     JSON.parse(localStorage.getItem("onlineUser"))
   );
+  
   const [isLoading, setIsLoading]=useState(false);
   const [auctions, setAcutions] = useState(undefined);
   const [auctionsByGuide, setAcutionsByGuide] = useState(undefined);
-  const [numOfAuctions, setNumOfAuctions]=useState();
+  const [numOfClosedAuctions, setNumOfClosedAuctions]=useState();
   const [numWonAuctions, setNumWonAuctions]=useState();
+  const [numOpenAuctions, setNumOpenAuctions]=useState(0);
+  const [numClosedAuctions, setNumClosedAuctions]=useState(0);
+  let closed=0;
+  let open=0;
   useEffect(() => {
     getDataAuc();
   }, []);
@@ -30,8 +35,18 @@ export default function JoinedAuctions() {
         return false;
       });
       setAcutionsByGuide(filteredAuc);
-      console.log("filteredAuc", auctionsByGuide);
-      setNumOfAuctions(auctions.length)
+      const openedAucs=filteredAuc.filter(e=>{
+        if(e.AuctionIsOpen===false){
+          return true;
+        }
+      });
+      if(openedAucs!=undefined && auctionsByGuide!=undefined){
+
+        console.log('openedAucs',openedAucs);
+        setNumOpenAuctions(openedAucs.length);
+        console.log("filteredAuc", auctionsByGuide);
+        setNumOfClosedAuctions(auctionsByGuide.length - openedAucs.length)
+      }
     }
   }, [auctions]);
 
@@ -45,11 +60,11 @@ export default function JoinedAuctions() {
 
 
   const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    labels: ['Closed Auctions', 'Open Auctions'],
     datasets: [
       {
-        label: '# of Votes',
-        data: [numOfAuctions, 19, 3, 5, 2, 3],
+        label: '# of Joined Auctions',
+        data: [numOfClosedAuctions, numOpenAuctions],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -78,9 +93,9 @@ export default function JoinedAuctions() {
       <div id="guide-lists">
         <div id="joined-auctions">
           <p>Joined Auctions:</p>
-          <div class="table">
+          <div className="table">
 
-          <div class="data-table">
+          <div className="data-table">
             {!isLoading && auctionsByGuide &&
               auctionsByGuide.map((e) => {
                 let mycolor = "green";
@@ -88,7 +103,10 @@ export default function JoinedAuctions() {
                   if (i.name === onlineUser.firstName) return i.bid;
                 });
                 if (e.AuctionIsOpen === true) {
+                  // setNumClosedAuctions(numClosedAuctions+1);
                   mycolor='red'
+                }else if(e.AuctionIsOpen === false){
+                  // setNumOpenAuctions(numOpenAuctions+1);
                 }
                   return (
                     <AuctionsJoined place={e.place} user={e.username} bid={myBid.bid} color={mycolor} aucId={e.id}/>
@@ -98,7 +116,7 @@ export default function JoinedAuctions() {
           </div>
           </div>
         </div>
-        <div><Chart data={data} /></div>
+        <div id="chart"><Chart data={data} /></div>
       </div>
       
       

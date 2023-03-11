@@ -32,3 +32,21 @@
 
     
 } */
+
+@media only screen and (max-width: 700px){
+   
+    #dash-nav ul{
+        width: 100%;
+        /* border: 1px solid red; */
+        /* height: 20rm; */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        
+    }
+
+    .dash-nav-link{
+        margin: 0.2rem;
+    }
+
+}

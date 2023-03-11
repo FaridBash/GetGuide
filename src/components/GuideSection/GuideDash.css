@@ -14,7 +14,7 @@
 
 #auctions-sec{
     width: 90vw;
-    height: 70%;
+    height: 90%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -46,8 +46,8 @@
 }
 
 #open-auctions-user{
-    width: 80vw;
-    height: 60vh;
+    width: 90vw;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
