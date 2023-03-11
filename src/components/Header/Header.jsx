@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './Header.css'
-// import logo from 'src/images/colored-logo.png'
+import logo from '../images/colored-logo.png'
 
 export default function Header(){
     const [myUser, setMyUser]=useState(JSON.parse(localStorage.getItem('onlineUser'))??null)
@@ -27,7 +27,7 @@ export default function Header(){
     return <div id='main-container'>
     <div id="header">
         <div id='header-col1'>
-        <img src='src\images\colored-logo.png' alt="logo" id='header-logo' />
+        <img src={logo} alt="logo" id='header-logo' />
         <ul id='myMenu'>
             <NavLink style={LinkStyles} className='link' to={'/home'}>Tours</NavLink>
             { JSON.parse(localStorage.getItem('onlineUser'))!=null?

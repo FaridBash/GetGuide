@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import Spinner from "../Spinner";
 import { useNavigate } from "react-router-dom";
 import './SignIn.css'
-
+import logo from '../images/colored-logo.png'
 
 
 export default function SignIn(){
@@ -61,7 +61,7 @@ export default function SignIn(){
     
     return(
         <div id="signup-form-container">
-          <img src="src\images\colored-logo.png" alt="" id="logo" />
+          <img src={logo} alt="" id="logo" />
             <form id="signup-form">
             <h2>Sign In</h2>
                 <div id="inputs">
