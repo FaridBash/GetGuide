@@ -90,7 +90,7 @@
     }
     #joined-auctions{
         width: 100%;
-        /* height: 100%; */
+        height: 70%;
         /* overflow-x: scroll; */
         /* flex-wrap: wrap; */
     }
@@ -101,7 +101,7 @@
     }
     .data-table{
         width: 100%;
-        flex-direction: row;
+        /* flex-direction: row; */
     }
     #joined-container{
         width: 70%;
@@ -118,8 +118,8 @@
         padding: 1rem;
     }
     #joined-auctions-page{
-        width: 100vw;
-        height: 70vh;
+        width: 90vw;
+        height: 60vh;
         display: flex;
         flex-direction: column;
         align-items: center;
