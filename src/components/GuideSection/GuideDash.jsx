@@ -3,9 +3,12 @@ import Spinner from "../Spinner";
 import AuctionCard from "./AuctionCard";
 import AuctionsJoined from "./AuctionsJoined";
 import DasboardNav from "./DashboardNav";
+import { useNavigate } from "react-router-dom";
 import "./GuideDash.css";
 
 export default function GuideDash() {
+
+  const nav=useNavigate();
   const [isLoading, setIsLoadind] = useState(false);
   const [auctions, setAcutions] = useState([]);
   const [filteredAuctions, setFilteredAcutions] = useState();
@@ -115,16 +118,18 @@ export default function GuideDash() {
   function bidClickHandler(d, id) {
     setBid(d);
     setAuctionBoxId(id);
-    // setTimeout(() => {
-    //   getAuctions();
-      
-    // }, 300);
+    setTimeout(() => {
+    nav('/guideDash/openauctions/JoinedAuctions');  
+    }, 400);
     console.log("clicccck", id);
   }
 
   function closeClickHandler(id) {
     console.log("close id:", id);
     setAucToClose(id);
+    setTimeout(() => {
+      nav('/guideDash/closedauctions')
+    }, 500);
   }
 
   async function updateHandler(itemId, biObj) {
@@ -149,11 +154,29 @@ export default function GuideDash() {
     } catch (error) {}
   }
   async function updateCloseHandler(itemId) {
+    const myAuc2 = auctions.find((e) => {
+      if (e.id === itemId) {
+        return e;
+      }
+    });
+    console.log("My CLosed Auction", myAuc2.bids);
+    let min = myAuc2.bids[0].bid;
+    let gName = myAuc2.bids[0].name;
+    if (myAuc2.bids != undefined) {
+      for (let i = 0; i < myAuc2.bids.length; i++) {
+        const element = myAuc2.bids[i];
+        if (min > element.bid) {
+          min = element.bid;
+          gName = element.name;
+        }
+      }
+    }
     try {
       fetch(`${url}/${itemId}`, {
         method: "PUT",
         body: JSON.stringify({
           AuctionIsOpen: true,
+          GuideWon: gName,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -164,17 +187,17 @@ export default function GuideDash() {
     } catch (error) {}
   }
   async function updateWinnerHandler(itemId) {
-    const myAuc = auctions.find((e) => {
+    const myAuc2 = auctions.find((e) => {
       if (e.id === itemId) {
         return e;
       }
     });
-    console.log("My CLosed Auction", myAuc.bids);
-    let min = myAuc.bids[0].bid;
-    let gName = myAuc.bids[0].name;
-    if (myAuc.bids != undefined) {
-      for (let i = 0; i < myAuc.bids.length; i++) {
-        const element = myAuc.bids[i];
+    console.log("My CLosed Auction", myAuc2.bids);
+    let min = myAuc2.bids[0].bid;
+    let gName = myAuc2.bids[0].name;
+    if (myAuc2.bids != undefined) {
+      for (let i = 0; i < myAuc2.bids.length; i++) {
+        const element = myAuc2.bids[i];
         if (min > element.bid) {
           min = element.bid;
           gName = element.name;

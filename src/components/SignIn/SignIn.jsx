@@ -24,7 +24,7 @@ export default function SignIn(){
               if(passwordRef.current.value===onUser.password){
                 localStorage.setItem("onlineUser",JSON.stringify(onUser))
                 console.log('onlineUser',onUser);
-                navigate('/guidedash');
+                navigate('/guidedash/openauctions');
               }
             }
         }

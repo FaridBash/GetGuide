@@ -23,6 +23,8 @@ export default function DasboardNav(){
             {onlineUser.role==='guide'? <NavLink style={LinkStyles}  className="dash-nav-link" to={'/guideDash/openauctions/JoinedAuctions'}>Joined Auctions</NavLink>:<NavLink to={'/guideDash/closedauctions'} style={LinkStyles} className="dash-nav-link">Closed Auctions</NavLink>}
             {onlineUser.role==='guide'? <NavLink style={LinkStyles}  className="dash-nav-link" to={'/guideDash/openauctions/Won'}>Auctions you won</NavLink>:<div></div>}
         </ul>
+        <div id="outletNav">
         <Outlet/>
+        </div>
     </div>
 }
