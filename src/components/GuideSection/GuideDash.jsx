@@ -120,7 +120,7 @@ export default function GuideDash() {
     setAuctionBoxId(id);
     setTimeout(() => {
     nav('/guideDash/openauctions/JoinedAuctions');  
-    }, 400);
+    }, 600);
     console.log("clicccck", id);
   }
 
@@ -129,7 +129,7 @@ export default function GuideDash() {
     setAucToClose(id);
     setTimeout(() => {
       nav('/guideDash/closedauctions')
-    }, 500);
+    }, 1000);
   }
 
   async function updateHandler(itemId, biObj) {
