@@ -127,9 +127,9 @@ export default function GuideDash() {
   function closeClickHandler(id) {
     console.log("close id:", id);
     setAucToClose(id);
-    // setTimeout(() => {
-    //   nav('/guideDash/closedauctions')
-    // }, 1000);
+    setTimeout(() => {
+      nav('/guideDash/closedauctions')
+    }, 1000);
   }
 
   async function updateHandler(itemId, biObj) {
